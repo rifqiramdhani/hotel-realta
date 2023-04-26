@@ -63,7 +63,6 @@ function* handleDeleteWorkorder(action:any):any  {
 
     try {
         const res = yield axios(API("delete", `workorders/delete/${action.payload}`));
-        console.log(res)
         yield put(doDeleteWorkorderSucceed(action.payload));
 
     } catch (error: any) {

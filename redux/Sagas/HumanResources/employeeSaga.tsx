@@ -70,7 +70,6 @@ function* handleDeleteEmployee(action: any): any {
 
     try {
         const res = yield axios(API("delete", `employee/delete/${action.payload}`));
-        console.log(res)
         yield put(doDeleteEmployeeSucceed(action.payload));
 
     } catch (error: any) {

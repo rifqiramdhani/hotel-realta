@@ -5,7 +5,6 @@ import { call, put } from "redux-saga/effects";
 function* handleGetStockDetail():any{
     try{
         const res = yield call(stodServices.getAllStockDetail)
-        console.log(res.data)
         yield put(doGetStockDetailSucceed(res.data))
     }catch(e:any){
         yield put(doGetStockDetailFailed(e))
@@ -24,7 +23,6 @@ function* handleGetFaciNameAndId():any{
 function* handleUpdateStockDetail (action:any):any{
     try{
         const res = yield call (stodServices.updateStockDetail,action.payload)
-        console.log(res.data)
         yield put(doUpdateStockDetailSucceed(action.payload))
     }catch(e:any){
         yield put(doUpdateStockDetailFailed(e))

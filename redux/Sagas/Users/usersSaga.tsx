@@ -1,6 +1,6 @@
 import { call, put } from "redux-saga/effects";
 import ReduceService from "@/redux/Services/Users/reduceService";
-import { doAddBonusPointsFailed, doAddBonusPointsSucceed, doAddMembersFailed, doAddMembersSucceed, doAddRolesFailed, doAddRolesSucceed, doAddUsersFailed, doAddUsersSucceed, doBonusPointRequestFailed, doBonusPointRequestSucceed, doBonusPointsRequestFailed, doBonusPointsRequestSucceed, doChangePasswordFailed, doChangePasswordSucceed, doDeleteBonusPointsFailed, doDeleteBonusPointsSucceed, doDeleteMembersFailed, doDeleteMembersSucceed, doDeleteRolesFailed, doDeleteRolesSucceed, doDeleteUsersFailed, doDeleteUsersSucceed, doLoginFailed, doLoginSucceed, doMemberRequestFailed, doMemberRequestSucceed, doMembersRequestFailed, doMembersRequestSucceed, doRegisterFailed, doRegisterGuestFailed, doRegisterGuestSucceed, doRegisterSucceed, doRoleRequestFailed, doRoleRequestSucceed, doRolesRequestFailed, doRolesRequestSucceed, doUpdateBonusPointsFailed, doUpdateBonusPointsSucceed, doUpdateMembersFailed, doUpdateMembersSucceed, doUpdatePhotoUsersFailed, doUpdatePhotoUsersSucceed, doUpdateRolesFailed, doUpdateRolesSucceed, doUpdateUsersFailed, doUpdateUsersSucceed, doUserRequestFailed, doUserRequestSucceed, doUsersRequestFailed, doUsersRequestSucceed } from "@/redux/Actions/Users/reduceActions";
+import { doAddBonusPointsFailed, doAddBonusPointsSucceed, doAddMembersFailed, doAddMembersSucceed, doAddRolesFailed, doAddRolesSucceed, doAddUsersFailed, doAddUsersSucceed, doBonusPointRequestFailed, doBonusPointRequestSucceed, doBonusPointsRequestFailed, doBonusPointsRequestSucceed, doChangePasswordFailed, doChangePasswordSucceed, doDeleteBonusPointsFailed, doDeleteBonusPointsSucceed, doDeleteMembersFailed, doDeleteMembersSucceed, doDeleteRolesFailed, doDeleteRolesSucceed, doDeleteUsersFailed, doDeleteUsersSucceed, doForgotPasswordFailed, doForgotPasswordSucceed, doLoginFailed, doLoginSucceed, doMemberRequestFailed, doMemberRequestSucceed, doMembersRequestFailed, doMembersRequestSucceed, doRegisterFailed, doRegisterGuestFailed, doRegisterGuestSucceed, doRegisterSucceed, doRoleRequestFailed, doRoleRequestSucceed, doRolesRequestFailed, doRolesRequestSucceed, doUpdateBonusPointsFailed, doUpdateBonusPointsSucceed, doUpdateMembersFailed, doUpdateMembersSucceed, doUpdatePhotoUsersFailed, doUpdatePhotoUsersSucceed, doUpdateRolesFailed, doUpdateRolesSucceed, doUpdateUsersFailed, doUpdateUsersSucceed, doUserRequestFailed, doUserRequestSucceed, doUsersRequestFailed, doUsersRequestSucceed } from "@/redux/Actions/Users/reduceActions";
 
 // USERS
 function* handleUsers(): any {
@@ -257,6 +257,16 @@ function* handleDelBonusPoints(action: any): any {
     }
 }
 
+function* handleForgotPassword(action: any): any {
+    try {
+        const result = yield call(ReduceService.forgotPassword, action.payload);
+        yield put(doForgotPasswordSucceed(result));
+    }
+    catch (error: any) {
+        yield put(doForgotPasswordFailed(error));
+    }
+}
+
 export {
     handleUsers,
     handleUser,
@@ -282,5 +292,6 @@ export {
     handleBonusPoint,
     handleAddBonusPoints,
     handleUpdateBonusPoints,
-    handleDelBonusPoints
+    handleDelBonusPoints,
+    handleForgotPassword
 }

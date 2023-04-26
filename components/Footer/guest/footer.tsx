@@ -1,26 +1,29 @@
 import React from "react";
 import styles from "@/styles/ContentHome.module.css"
+import { Layout } from "antd";
 
 export default function Footer() {
+  const { Footer } = Layout;
   return (
-    <footer aria-label="Site Footer" className="bg-[#131828] dark:bg-gray-900">
-      <div className="max-w-screen-xl px-4 py-16 mx-auto space-y-8 sm:px-6 lg:space-y-16 lg:px-8">
-        <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
+    <>
+    <Footer className="bg-[#131828] dark:bg-gray-900">
+      <div className="max-w-screen-xl px-4 py-10 mx-auto space-y-8 sm:px-0 lg:space-y-16 lg:px-0">
+        <div className="grid grid-cols-2 gap-8 lg:grid-cols-3 mt-2">
           <div>
-            <div className="text-teal-600 dark:text-teal-300">
+            <div className="text-teal-600 dark:text-teal-300 ">
               <div className="h-11">
                 {" "}
-                <img className="w-23px h-8" src="/assets/logo-realtaHotel-white.png" />
+                <img className="w-23px h-11" src="/assets/logo-realtaHotel-white.png" />
               </div>
             </div>
 
-            <div className="underline-offset-8 max-w-xs mt-4 text-gray-500 dark:text-gray-400 justify-items-center">
+            <div className="underline-offset-8 max-w-xs pb-8 pt-6 text-gray-500 dark:text-gray-400 justify-items-center">
               <p className={styles.textLabelInHomeFooter}>
                 Our hotel is located in the heart of the city, providing easy access to popular tourist attraction and bussiness hubs.
               </p>
             </div>
 
-            <ul className="flex gap-6 mt-8">
+            <ul className="flex gap-8 mt-8">
               <li>
                 <a
                   href="/"
@@ -28,7 +31,7 @@ export default function Footer() {
                   target="_blank"
                   className="text-white transition hover:opacity-75 dark:text-gray-200"
                 >
-                  <span className="sr-only">Facebook</span>
+                  <span className="sr-only">{"Facebook"}</span>
 
                   <svg
                     className="w-6 h-6"
@@ -52,7 +55,7 @@ export default function Footer() {
                   target="_blank"
                   className="text-white transition hover:opacity-75 dark:text-gray-200"
                 >
-                  <span className="sr-only">Instagram</span>
+                  <span className="sr-only">{"Instagram"}</span>
 
                   <svg
                     className="w-6 h-6"
@@ -76,7 +79,7 @@ export default function Footer() {
                   target="_blank"
                   className="text-white transition hover:opacity-75 dark:text-gray-200"
                 >
-                  <span className="sr-only">Twitter</span>
+                  <span className="sr-only">{"Twitter"}</span>
 
                   <svg
                     className="w-6 h-6"
@@ -91,9 +94,9 @@ export default function Footer() {
             </ul>
           </div>
 
-          <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:col-span-2 lg:grid-cols-4">
-            <div className="underline-offset-8 font-medium text-white">
-              <p className={styles.textLabelInHomeFooter}>
+          <div className="grid pl-120 mr-0 mt-3 grid-cols-3 gap-8 sm:grid-cols-2 lg:col-span-2 lg:grid-cols-4">
+            <div className="underline-offset-8 ml-0   font-medium text-white">
+              <p className={styles.textLabelTitleInHomeFooter}>
                 Services
               </p>
 
@@ -101,7 +104,7 @@ export default function Footer() {
                 <ul className="space-y-4 text-sm">
                   <li>
                     <a
-                      href="#"
+                      href="/"
                       className="text-white transition hover:opacity-75 dark:text-gray-200 opacity-80"
                     >
                       Home
@@ -110,7 +113,7 @@ export default function Footer() {
 
                   <li>
                     <a
-                      href="#"
+                      href="/.#facility"
                       className="text-white transition hover:opacity-75 dark:text-gray-200 opacity-80"
                     >
                       Facility
@@ -118,7 +121,7 @@ export default function Footer() {
                   </li>
                   <li>
                     <a
-                      href="#"
+                      href="/booking"
                       className="text-white transition hover:opacity-75 dark:text-gray-200 opacity-80"
                     >
                       Booking
@@ -128,8 +131,8 @@ export default function Footer() {
               </nav>
             </div>
 
-            <div className="underline-offset-8 font-medium text-white dark:text-white">
-              <p className={styles.textLabelInHomeFooter}>
+            <div className="underline-offset-8 ml-0 font-medium text-white dark:text-white">
+              <p className={styles.textLabelTitleInHomeFooter}>
                 Company
               </p>
 
@@ -137,7 +140,7 @@ export default function Footer() {
                 <ul className="space-y-4 text-sm">
                   <li>
                     <a
-                      href="#"
+                      href="/.#about"
                       className="text-white transition hover:opacity-75 dark:text-gray-200 opacity-80"
                     >
                       About
@@ -165,8 +168,8 @@ export default function Footer() {
               </nav>
             </div>
 
-            <div className="underline-offset-8 font-medium text-white dark:text-white">
-              <p className={styles.textLabelInHomeFooter}>
+            <div className="underline-offset-8 ml-0 font-medium text-white dark:text-white">
+              <p className={styles.textLabelTitleInHomeFooter}>
                 Helpful Links
               </p>
 
@@ -202,8 +205,8 @@ export default function Footer() {
               </nav>
             </div>
 
-            <div className="underline-offset-8 font-medium text-white dark:text-white">
-              <p className={styles.textLabelInHomeFooter}>
+            <div className="underline-offset-8 ml-0 font-medium text-white dark:text-white">
+              <p className={styles.textLabelTitleInHomeFooter}>
                 Legal
               </p>
 
@@ -250,12 +253,13 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="underline-offset-8 text-xs text-gray-500 dark:text-gray-400">
+        <div className="underline-offset-4 text-xs text-gray-500 dark:text-gray-400">
           <p className={styles.textLabelInHomeFooter}>
             &copy; 2023. Realta Hotels. All rights reserved.
           </p>
         </div>
       </div>
-    </footer>
+    </Footer>
+    </>
   );
 }

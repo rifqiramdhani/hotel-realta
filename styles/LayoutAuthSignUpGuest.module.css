@@ -19,7 +19,7 @@
     width: 450px;
     height: auto;
     left: 7rem;
-    top: 9rem;
+    top: 15rem;
     background: #FFFFFF;
     box-shadow: 0px 0px 10px #ddd3d4;
     border-radius: 10px;
@@ -35,7 +35,7 @@
     width: 450px;
     height: 298px;
     right: 7rem;
-    top: 9rem;
+    top: 15rem;
     background: rgba(255, 255, 255, 0.34);
     backdrop-filter: blur(2px);
     border-radius: 10px;
@@ -126,7 +126,7 @@
     position: fixed;
     transform: scaleX(1.2);
     top: 0;
-    left: 0; 
+    left: 0;
     z-index: -1;
 }
 

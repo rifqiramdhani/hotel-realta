@@ -38,18 +38,28 @@ const createBoex = async(data:any) => {
 
 const GetHistory = async(id:any) => {
     try{
-        const result = await axios.get(`booking-order-detail-extra/invoice/${id}`);
+        const result = await axios.get(`/booking-order-detail-extra/invoice/${id}`);
         return result
     }catch(error:any){
         return  error.messege
     }
 }
 
+const UpdateHistory = async(data:any) => {
+    const id = parseInt(data.boorId)
+    try{
+        const result = await axios.put(`/bookingOrders/status/${id}`, data);
+        return result
+    }catch(error:any){
+        return  error.messege
+    }
+}
 const ApiOrderDetails = {
     getAll,
     Create,
     getInvoice,
     createBoex,
-    GetHistory
+    GetHistory,
+    UpdateHistory
 }
 export default ApiOrderDetails

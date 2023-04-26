@@ -3,7 +3,7 @@ import {
   doGetPhotoDashboard,
   doGetStockPhoto,
 } from "@/redux/Actions/Purchasing/sphoActions";
-import { Button, Card, Col, Divider, Input, Row } from "antd";
+import { Button, Card, Col, Divider, Input, Row, message } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
 import React, { useEffect, useState } from "react";
 import { DeleteOutlined, ShoppingCartOutlined } from "@ant-design/icons";
@@ -30,8 +30,18 @@ const index = () => {
   const [stockOrder, setStockOrder] = useState([]);
   const [dataSearch, setDataSearch] = useState([]);
   const [disabledButton, setDisabledButton] = useState(true);
-  const [cursorType, setCursorType] = useState("cursor-not-allowed");
+  const [cursorType, setCursorType] = useState("bg-gray-500 cursor-not-allowed hover:bg-gray-500");
+  const [messageApi, contextHolder] = message.useMessage()
 
+  useEffect(()=>{
+    if(stockOrder1.vendors.length != 0){
+      setDisabledButton(false)
+      setCursorType('bg-[#3C6FF3] cursor-pointer')
+    }else{
+      setDisabledButton(false)
+      setCursorType('bg-gray-500 cursor-not-allowed hover:bg-gray-500')
+    }
+  },[stockOrder1,disabledButton,cursorType])
   //Add To Cart
   const addToCart = (value: any) => {
     const quantities = 1;
@@ -252,17 +262,26 @@ const index = () => {
       const res = stockOrder[j];
       dispatch(doInsertOrderHeader(res));
     }
-
-    console.log(stockOrder);
+    messageApi.open({
+      type:'loading',
+      content:'Action in Progress...',
+      duration: 2.5
+    }).then(()=>message.success('Stock Ordered', 2))
+    .then(()=>message.info('Call Manager to Check the Order',2.5))
+    // console.log(stockOrder);
+    setTimeout(() => { setStockOrder1({
+      vendors: [],
+    subtotal: 0,
+    tax: 0,
+    total: 0,
+    }) }, 3000)
+    
   };
   //Set What To Display when Searching Product
   const dataCard = dataSearch.length > 0 ? dataSearch : stockPhotos;
-  // const disabler = stockOrder1.vendors.length != 0
-  //   ? setDisabledButton(false)
-  //   : setDisabledButton(true);
-  // console.log(disabler);
   return (
     <LayoutAdmin>
+      {contextHolder}
       <Search
         placeholder="Search Product"
         className="flex w-96 justify-center m-8"
@@ -281,7 +300,7 @@ const index = () => {
                     <img
                       alt="example"
                       src={
-                        "http://localhost:3010/stock-photo/" + item?.photourl
+                        "http://localhost:3005/stock-photo/" + item?.photourl
                       }
                     />
                   }
@@ -386,10 +405,11 @@ const index = () => {
                 </h3>
               </div>
               <div className="flex justify-center">
+              
                 <button
-                  className={`bg-[#3C6FF3] w-60 px-4 py-2.5 rounded text-white hover:bg-[#274799] m-4 text-center ${cursorType}`}
+                  className={`w-60 px-4 py-2.5 rounded text-white hover:bg-[#274799] m-4 text-center ${cursorType}`}
                   onClick={() => onSubmit(stockOrder1)}
-                  // disabled = {disabler}
+                  disabled = {disabledButton}
                 >
                   Request Order
                 </button>

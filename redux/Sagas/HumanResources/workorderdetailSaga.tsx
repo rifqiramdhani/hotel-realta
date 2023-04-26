@@ -76,7 +76,6 @@ function* handleDeleteWorkorderdetail(action:any):any  {
     try {
         const res = yield axios(API("delete", `work-order-detail/delete?${queryParams.toString() }`));
         yield put(doDeleteWorkorderdetailSucceed(res.data.result));
-        console.log("result deleted", res.data.result)
 
     } catch (error: any) {
         const delay = (time: any) =>

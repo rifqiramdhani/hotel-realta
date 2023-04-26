@@ -541,3 +541,24 @@ export const doDeleteBonusPointsFailed:any = (payload:any):any => {
         payload
     }
 }
+
+export const doForgotPassword: any = (payload: any): any => {
+    return {
+        type: ActionType.FORGOT_PASSWORD,
+        payload
+    }
+}
+
+export const doForgotPasswordSucceed: any = (payload: any): any => {
+    return {
+        type: ActionType.FORGOT_PASSWORD_SUCCEED,
+        payload
+    }
+}
+
+export const doForgotPasswordFailed:any = (payload:any):any => {
+    return {
+        type: ActionType.FORGOT_PASSWORD_FAILED,
+        payload
+    }
+}

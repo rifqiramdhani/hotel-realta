@@ -3,9 +3,9 @@ import { Bank } from "@/lib/interfaces";
 import { BANK_URL } from "@/lib/urls";
 
 const getAll = async (payload: any): Promise<any> => {
-	const limitParams = payload?.data.limit? `&limit=${payload.data.limit}` : `&limit=`
-	const pageParams = payload?.data.page ? `&page=${payload.data.page}` : `&page=`
-	const searchParams = payload?.data.keyword ? `keyword=${payload.data.keyword}` : `keyword=`
+	const limitParams = payload.limit? `&limit=${payload.limit}` : `&limit=`
+	const pageParams = payload.page ? `&page=${payload.page}` : `&page=`
+	const searchParams = payload?.keyword ? `keyword=${payload.keyword}` : `keyword=`
 	
 	return await axios.get(`${BANK_URL}/filter?${searchParams}${limitParams}${pageParams}`);
 };

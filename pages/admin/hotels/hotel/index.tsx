@@ -34,7 +34,6 @@ import {
 import LayoutAdmin from "@/components/Layout/admin";
 import Head from "next/head";
 
-
 export default function index() {
   const dispatch = useDispatch();
   const router = useRouter();
@@ -65,9 +64,7 @@ export default function index() {
           message.success("delete data success");
         }
       },
-      onCancel() {
-        console.log("calcle");
-      },
+      onCancel() {},
     });
   };
 
@@ -79,7 +76,7 @@ export default function index() {
   };
 
   const showFaci = (id: any) => {
-    router.push("hotel/facility/" + id);
+    router.push("/admin/hotels/hotel/facility/" + id);
   };
 
   // dropdown
@@ -107,6 +104,11 @@ export default function index() {
       dataIndex: "hotelName",
       key: "hotelName",
       sorter: (a: any, b: any) => a.hotelName.length - b.hotelName.length,
+    },
+    {
+      title: "Address",
+      dataIndex: ["hotelAddr", "addrLine1"],
+      key: "Address",
     },
     {
       title: "Deskription",
@@ -272,7 +274,7 @@ export default function index() {
   const handleSelect = (value: any) => {
     setValueHotel({ ...valueHotel, hotelAddr: parseInt(value) });
   };
-  const options = dataAddr.map((item: any) => ({
+  const options = dataAddr?.map((item: any) => ({
     value: item.hotel_addr_id,
     label: item.place,
   }));
@@ -369,7 +371,7 @@ export default function index() {
                   style={{ width: 200 }}
                   placeholder="Search to Select"
                   optionFilterProp="children"
-                  filterOption={(input, option) =>
+                  filterOption={(input: any, option: any) =>
                     (option?.label ?? "")
                       .toLowerCase()
                       .includes(input.toLowerCase())

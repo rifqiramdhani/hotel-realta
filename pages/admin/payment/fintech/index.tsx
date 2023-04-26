@@ -13,7 +13,7 @@ export default function PaymentFintech() {
 
     useEffect(() => {
         dispatch(fetchFintech());
-    }, [fintech]);
+    }, [    ]);
 
     return (
         <div>
@@ -21,10 +21,7 @@ export default function PaymentFintech() {
                 <title>Payment/Fintech</title>
             </Head>
             <LayoutAdmin>
-                <Row>
-                    <FintechTable data={fintech} />
-                    <InfoChart data={fintech} name="Fintech" />
-                </Row>
+                <FintechTable data={fintech} />
             </LayoutAdmin>
         </div>
     );

@@ -11,4 +11,13 @@ function * handelHistory(action:any):any{
     }
 }
 
-export {handelHistory}
+function * handelupdateHistory(action:any):any{
+    try {
+        const result = yield call(ApiOrderDetails.UpdateHistory,action.payload)
+        yield put (orderDetailHistoryRequestSecced(result.data))
+    }catch(error:any){
+        yield put (orderDetailHistoryRequestFailed(error))
+    }
+}
+
+export {handelHistory, handelupdateHistory}

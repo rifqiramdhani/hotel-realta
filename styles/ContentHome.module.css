@@ -53,6 +53,15 @@
     text-align: justify;
 }
 
+.textLabelTitleInHomeFooter {
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 28px;
+    text-align: left;
+}
+
 .textLabelInHomeFooter {
     font-family: 'Poppins';
     font-style: normal;
@@ -90,10 +99,10 @@
 
 .searchCardHome {
     position: absolute;
-    width: 1550px;
+    width: auto;
     height: auto;
-    left: 190px;
-    top: 501px;
+    left: 390px;
+    top: 460px;
 }
 
 @media (max-width: 812px) {

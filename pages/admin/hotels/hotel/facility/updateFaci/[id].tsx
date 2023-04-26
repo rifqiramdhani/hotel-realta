@@ -37,7 +37,6 @@ export default function index() {
     faci_cagro_id: 0,
     faci_hotel_id: 0,
   });
-  console.log("datafaci", dataFaci);
   const [faci, setFaci] = useState();
   useEffect(() => {
     dispatch(doFaciAdminReq());
@@ -178,7 +177,7 @@ export default function index() {
       return;
     }
     dispatch(doUpdateFaci(dataFaci));
-    router.push("/hotel/facility/" + dataFaci.faci_hotel_id);
+    router.push("/admin/hotels/hotel/facility/" + dataFaci.faci_hotel_id);
   };
 
   // buton back
@@ -345,7 +344,7 @@ export default function index() {
             <Col span={10} className="ml-5">
               <Form.Item
                 className=""
-                label="facility hight price"
+                label="facility high price"
                 validateStatus={
                   dataFaci.faci_hight_price === "" && showError.faci_hight_price
                     ? "error"

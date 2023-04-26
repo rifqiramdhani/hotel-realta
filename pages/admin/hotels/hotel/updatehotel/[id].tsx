@@ -1,8 +1,9 @@
 import {
+  doAddrSearchReq,
   doHotelAdminReq,
   doUpdateHotel,
 } from "@/redux/Actions/Hotels/actionHotelAdmin";
-import { Button, Form, Input, Radio, message } from "antd";
+import { Button, Form, Input, Radio, Select, message } from "antd";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -19,7 +20,8 @@ export default function udatehotel() {
   let dataHotel = useSelector(
     (state: any) => state.HotelAdminReducer.hotelAdmin
   );
-
+  let dataAddr = useSelector((state: any) => state.AddrHotelReducer.HotelAddr);
+  let addrPlaceholder = dataAddr?.find((item: any) => item.hotel_addr_id == id);
   const [dataUpdate, setDataUpdate] = useState({
     hotelId: "",
     hotelName: "",
@@ -27,10 +29,13 @@ export default function udatehotel() {
     hotelRatingStar: 0,
     hotelPhonenumber: "",
     hotelModifiedDate: now.toISOString().substr(0, 10),
+    hotelAddr: 0,
   });
 
   const [oneHotel, setOneHotel] = useState();
-
+  useEffect(() => {
+    dispatch(doAddrSearchReq());
+  }, []);
   useEffect(() => {
     dispatch(doHotelAdminReq());
     let hotel = dataHotel.find((item: any) => item.hotelId == id);
@@ -71,6 +76,14 @@ export default function udatehotel() {
   };
 
   // end
+  // search addrs
+  const handleSelect = (value: any) => {
+    setDataUpdate({ ...dataUpdate, hotelAddr: parseInt(value) });
+  };
+  const options = dataAddr?.map((item: any) => ({
+    value: item.hotel_addr_id,
+    label: item.place,
+  }));
   return (
     <div>
       <Head>
@@ -103,6 +116,22 @@ export default function udatehotel() {
                 placeholder=""
                 value={dataUpdate.hotelDescription}
                 onChange={eventHandler("hotelDescription")}
+              />
+            </Form.Item>
+            <Form.Item label="Address" name="Address">
+              <Select
+                placeholder={addrPlaceholder?.place}
+                showSearch
+                style={{ width: 200 }}
+                optionFilterProp="children"
+                filterOption={(input: any, option: any) =>
+                  (option?.label ?? "")
+                    .toLowerCase()
+                    .includes(input.toLowerCase())
+                }
+                options={options}
+                value={dataUpdate.hotelAddr}
+                onChange={handleSelect}
               />
             </Form.Item>
             <Form.Item label="hotel Rating Star">

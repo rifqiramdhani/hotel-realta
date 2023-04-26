@@ -160,7 +160,7 @@ export default function Faci() {
       key: "faci_low_price",
     },
     {
-      title: "hight price",
+      title: "high price",
       dataIndex: "faci_hight_price",
       key: "faci_hight_price",
     },
@@ -528,12 +528,12 @@ export default function Faci() {
   };
   // handler fapho
   const showFapho = (id: any) => {
-    router.push("fapho/" + id);
+    router.push("/admin/hotels/hotel/facility/fapho/" + id);
   };
   // end
   // handler fph
   const showFPH = (id: any) => {
-    router.push("faciPriceHistory/" + id);
+    router.push("/admin/hotels/hotel/facility/faciPriceHistory/" + id);
   };
   // end
   // search faci name
@@ -557,22 +557,15 @@ export default function Faci() {
               <IoIosBed />
             </span>
             <div>
-              <span className="text-3xl font-bold ml-3">
-                {hotelName}
-                {/* {dataHotelOne?.hotelName} */}
-              </span>
+              <span className="text-3xl font-bold ml-3">{hotelName}</span>
             </div>
           </div>
           <div className="">
             <span className="text-base text-gray-700 font-bold">
               {dayjs(hotelDate).format("DD MMMM YYYY hh:mm:ss")}
-              {/* {dayjs(dataHotelOne?.hotelModifiedDate).format(
-              "DD MMMM YYYY hh:mm:ss"
-            )} */}
             </span>
             <p className="flex justify-start">
-              {/* <Rate disabled defaultValue={dataHotelOne?.hotelRatingStar} /> */}
-              {/* <Rate disabled defaultValue={hotelRating} /> */}
+              <Rate disabled defaultValue={hotelRating} />
             </p>
           </div>
         </div>
@@ -707,11 +700,11 @@ export default function Faci() {
                   </Form.Item>
                   <Form.Item className="" label="facility room_number">
                     <Input
-                      placeholder="input placeholder"
                       type="text"
                       value={dataFaci.faciRoomNumber}
                       onChange={eventHandler("faciRoomNumber")}
                       readOnly
+                      className="bg-gray-200"
                     />
                   </Form.Item>
                   <Form.Item
@@ -787,7 +780,7 @@ export default function Faci() {
                   </Form.Item>
                   <Form.Item
                     className=""
-                    label="facility hight price"
+                    label="facility high price"
                     name="faciHightPrice"
                     rules={[{ required: true }]}
                     validateStatus={

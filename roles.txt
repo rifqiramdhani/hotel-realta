@@ -1,0 +1,161 @@
+ROLES : {
+  1 : guest {
+    * landing page
+  }
+  
+  2 : manager {
+    * hr
+    * purchasing
+    * payment
+    * hotels
+    * resto
+  }
+  
+  3 : office boy {
+    * hotels
+  }
+    
+  4 : admin {
+    * master
+    * users
+    * hr
+    * purchasing
+    * payment
+    * hotels
+    * resto
+  }
+  
+  5 : staff {
+    * hr
+    * purchasing
+    * payment
+    * hotels
+    * resto
+  } 
+}
+
+------------
+PATHNAME : {
+  - auth : {
+    * signupEmployee      : /auth/signupEmployee
+    * signupGuest         : /auth/signupGuest
+    * signIn              : /auth/signin
+  }
+  
+  - admin : {
+    * master : {
+      ~ locations         : /admin/master/locations
+      ~ policy            : /admin/master/policy
+      ~ category group    : /admin/master/category
+      ~ price items       : /admin/master/priceItems
+      ~ service task      : /admin/master/serviceTask
+    }
+    * users : {
+      ~ roles             : /admin/users/profile
+      ~ members           : /admin/users/members
+      ~ bonusPoints       : /admin/users/bonusPoints
+    }
+    * hr : {
+      ~ departement       : /admin/hr/departement
+      ~ employee          : /admin/hr/employee
+      ~ workOrder         : /admin/hr/workorder
+    }
+    * purchasing : {
+      ~ vendor            : /admin/purchasing/vendor
+      ~ stock             : /admin/purchasing/stock
+      ~ purchaseOrder     : /admin/purchasing/purchaseOrder
+    }
+    * payment : {
+      ~ bank              : /admin/payment/bank
+      ~ fintech           : /admin/payment/fintech
+      ~ accounts          : /admin/payment/accounts
+      ~ topup             : /admin/payment/topup
+      ~ transaction       : /admin/payment/transaction
+    }
+    * hotels : {
+      ~ hotel             : /admin/hotels/hotel
+      ~ facilities        : /admin/hotels/facilities
+      ~ reviews           : /admin/hotels/reviews
+    }
+    * resto : /admin/resto
+  }
+  
+  - manager : {
+    * hr : {
+      ~ departement       : /manager/hr/departement
+      ~ employee          : /manager/hr/employee
+      ~ workOrder         : /manager/hr/workOrder
+    }
+    * purchasing : {
+      ~ vendor            : /manager/purchasing/vendor
+      ~ stock             : /manager/purchasing/stock
+      ~ purchaseOrder     : /manager/purchasing/purchaseOrder
+    }
+    * payment : {
+      ~ bank              : /manager/payment/bank
+      ~ fintech           : /manager/payment/fintech
+      ~ accounts          : /manager/payment/accounts
+      ~ topup             : /manager/payment/topup
+      ~ transaction       : /manager/payment/transaction
+    }
+    * hotels : {
+      ~ hotel             : /manager/hotels/hotel
+      ~ facilities        : /manager/hotels/facilities
+      ~ reviews           : /manager/hotels/reviews
+    }
+    * resto : /manager/resto
+  }
+
+  - staff : {
+    * hr : {
+      ~ departement       : /staff/hr/departement
+      ~ employee          : /staff/hr/employee
+      ~ workOrder         : /staff/hr/workOrder
+    }
+    * purchasing : {
+      ~ vendor            : /staff/purchasing/vendor
+      ~ stock             : /staff/purchasing/stock
+      ~ purchaseOrder     : /staff/purchasing/purchaseOrder
+    }
+    * payment : {
+      ~ bank              : /staff/payment/bank
+      ~ fintech           : /staff/payment/fintech
+      ~ accounts          : /staff/payment/accounts
+      ~ topup             : /staff/payment/topup
+      ~ transaction       : /staff/payment/transaction
+    }
+    * hotels : {
+      ~ hotel             : /staff/hotels/hotel
+      ~ facilities        : /staff/hotels/facilities
+      ~ reviews           : /staff/hotels/reviews
+    }
+    * resto : /staff/resto
+  }
+
+  - ob : {
+    * hotels : {
+      ~ hotel             : /ob/hotels/hotel
+      ~ facilities        : /ob/hotels/facilities
+      ~ reviews           : /ob/hotels/reviews
+    }
+  }
+}
+
+
+
+-- Berikut adalah penyesuaian antara departemen dan job role yang mungkin sesuai:
+
+-- Direktur Utama: Tidak terkait dengan departemen tertentu
+-- Direktur Keuangan: Finance
+-- Direktur Personalia: Human Resources
+-- Direktur Teknik: Engineering
+-- Direktur Operasional: Operations
+-- Manajer Teknik: Engineering
+-- Manajer Keuangan: Finance
+-- Manajer Personalia: Human Resources
+-- Manajer Operasional: Operations
+-- Administrasi dan Gudang: Supply Chain
+-- Staff Teknik: Engineering, IT, Research and Development, Manufacturing, Quality Assurance
+-- Staff Keuangan: Finance, Accounting
+-- Staff Personalia: Human Resources, Training
+-- Staff Operasional: Operations, Logistics, Purchasing, Manufacturing, Quality Assurance

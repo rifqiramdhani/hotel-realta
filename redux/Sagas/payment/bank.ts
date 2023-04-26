@@ -11,8 +11,8 @@ import {
 import bankService from "@/redux/Services/payment/bank";
 import { call, put } from "redux-saga/effects";
 
-export function* fetchBanks(): any {
-	const result = yield call(bankService.getAll);
+export function* fetchBanks(action: any): any {
+	const result = yield call(bankService.getAll, action.data);
 	try {
 		yield put({
 			type: FETCH_BANKS_SUCCEED,

@@ -11,7 +11,6 @@ const findallVendor = async() =>{
 
 const createVendor = async(data:any)=>{
     try{
-        console.log(data)
         const res = await axios.post('/vendor', data)
         // console.log(res.data)
         return res
@@ -32,7 +31,6 @@ const updateVendor = async (data:any)=>{
 }
 
 const deleteVendor = async (data:any)=>{
-    console.log(data)
     try{
         const res = await axios.delete(`/vendor/${data}`)
         // console.log(res)

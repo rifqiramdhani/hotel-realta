@@ -121,7 +121,6 @@ const create3 = async (data: any) => {
 
 const update3 = async (data: any) => {
     const id = parseInt(data.provId);
-    console.log("datas:",data)
     try {
         const result: any = await axios.put(`/provinces/edit/${id}`, data);
         return result;

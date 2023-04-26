@@ -23,6 +23,9 @@ import type { FilterConfirmProps } from "antd/es/table/interface";
 import {
   MoreOutlined,
   PlusCircleOutlined,
+  QuestionCircleOutlined,
+  EditOutlined,
+  DeleteOutlined,
   CloseOutlined,
 } from '@ant-design/icons';
 import ComponentsIndicatorToast from '@/components/Indicator/toast';
@@ -320,12 +323,27 @@ export default function UsersRoles() {
         <Space size="middle">
           <Dropdown
             overlay={(
-              <Menu className='hover:text-blue-600'>
-                {items.map((item) => (
-                  <Menu.Item key={record.roleId} onClick={item.onClick}>
-                    {item.label}
-                  </Menu.Item>
-                ))}
+              <Menu className="hover:text-blue-600 items-center space-y-1">
+                <Menu.Item className="border hover:border-blue-600 hover:text-blue-600 items-center" key={`Edit${record.roleId}`} onClick={() => handleEdit(record.roleId)}>
+                  <EditOutlined />{" Edit"}
+                </Menu.Item>
+                <Menu.Item className="border hover:border-red-600 hover:text-red-600 items-center" key={`Delete${record.roleId}`}>
+                  <Popconfirm
+                    title="Delete the task"
+                    description="Are you sure to delete roles?"
+                    onConfirm={() => {
+                      if ({ confirm }) {
+                        handleDelete(record.roleId);
+                      }
+                    }}
+                    okText="Yes"
+                    cancelText="No"
+                    placement="rightTop" arrow
+                    icon={<QuestionCircleOutlined style={{ color: "red" }} className="items-center" />}
+                  >
+                    <DeleteOutlined className="hover:text-red-600" />{" Delete"}
+                  </Popconfirm>
+                </Menu.Item>
               </Menu>
             )}
           >
@@ -415,13 +433,14 @@ export default function UsersRoles() {
                         handleSubmit,
                       }) => (
                         <Form onSubmit={handleSubmit}>
-                          {/* Edit General */}
+                          {/* Add roles */}
                           <Box 
-                            className="pl-8 pr-8 pb-8"
+                            className="pl-8 pr-8 pb-4 space-y-2"
                             
                           >
                             <TextField
-                              hidden
+                              variant='filled'
+                              hidden={true}
                               type='hidden'
                               value={values.roleId=DataUserEdit.roleId}
                             />
@@ -522,12 +541,12 @@ export default function UsersRoles() {
                         handleSubmit,
                       }) => (
                         <Form onSubmit={handleSubmit}>
-                          {/* Edit General */}
+                          {/* Edit Roles */}
                           <Box 
-                            className="pl-8 pr-8 pb-8"
-                            
+                            className="pl-8 pr-8 pb-4 space-y-2"
                           >
                             <TextField
+                              variant='filled'
                               hidden
                               type='hidden'
                               value={values.roleId=DataUserEdit.roleId}

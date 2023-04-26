@@ -18,7 +18,6 @@ function* handleAddVendor(actions:any):any{
         // console.log(actions.payload)
         const res = yield call(vendorServ.createVendor, actions.payload)
         // const res = yield axios.post('http://localhost:3010/vendor/', actions.payload)
-        console.log(res.data.result)
         yield put(createVendorSucceed(res.data))
         return res.data.result
     }catch(e:any){

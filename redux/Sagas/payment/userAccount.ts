@@ -25,85 +25,109 @@ export function* fetchUserAccounts(): any {
 	} catch (error) {
 		yield put({
 			type: FETCH_ACCOUNTS_FAILED,
-			error: error,
+			data: result.data,
 		});
 	}
 }
 
 export function* fetchUserAccountBy(action: any): any {
 	const result = yield call(userAccountService.getbyUser, action.data);
+	const delay = (time: any) =>
+		new Promise((resolve) => setTimeout(resolve, time));
 	try {
 		yield put({
 			type: FETCH_ACCOUNT_SUCCEED,
 			data: result.data,
 		});
+		yield call(delay, 2000);
 	} catch (error) {
 		yield put({
 			type: FETCH_ACCOUNT_FAILED,
-			error: error,
+			data: result.data,
 		});
+		yield call(delay, 2000);
 	}
 }
 
 export function* createUserAccount(action: any): any {
 	const result = yield call(userAccountService.insert, action.data);
+	const delay = (time: any) =>
+		new Promise((resolve) => setTimeout(resolve, time));
 	try {
 		yield put({
 			type: CREATE_ACCOUNT_SUCCEED,
 			data: result.data,
 		});
+		yield call(delay, 2000);
 	} catch (error) {
 		yield put({
 			type: CREATE_ACCOUNT_FAILED,
-			error: error,
+			message: error,
 		});
+		yield call(delay, 2000);
 	}
 }
 
 export function* updateUserAccount(action: any): any {
 	const result = yield call(userAccountService.update, action.data);
+	const delay = (time: any) =>
+		new Promise((resolve) => setTimeout(resolve, time));
 	try {
 		yield put({
 			type: UPDATE_ACCOUNT_SUCCEED,
 			data: action.data,
+			message: result.data?.message,
+			status: result.data?.status,
 		});
+		yield call(delay, 2000);
 	} catch (error) {
 		yield put({
 			type: UPDATE_ACCOUNT_FAILED,
-			error: error,
+			message: error,
+			status: result?.data?.status,
 		});
+		yield call(delay, 2000);
 	}
 }
 
 export function* deleteUserAccount(action: any): any {
 	const result = yield call(userAccountService.remove, action.data);
+	const delay = (time: any) =>
+		new Promise((resolve) => setTimeout(resolve, time));
+	console.log("result delete", result);
 	try {
 		yield put({
 			type: DELETE_ACCOUNT_SUCCEED,
 			data: action.data,
+			message: result.data.message,
+			status: result.data.status,
 		});
+		yield call(delay, 2000);
 	} catch (error) {
 		yield put({
 			type: DELETE_ACCOUNT_FAILED,
-			error: error,
+			message: error,
 		});
+		yield call(delay, 2000);
 	}
 }
 
 export function* checkSecuredKey(action: any): any {
 	const result = yield call(userAccountService.check, action.data);
+	const delay = (time: any) =>
+		new Promise((resolve) => setTimeout(resolve, time));
 	try {
 		yield put({
 			type: CHECK_SECURED_KEY_SUCCEED,
-			result: result.data.response.result,
-			message: result.data.message,
+			data: result.data,
 		});
+		yield call(delay, 2000);
+		
 	} catch (error) {
 		yield put({
 			type: CHECK_SECURED_KEY_FAILED,
-			result: result.data.response.result,
-			error: error,
-			message: result.data.message,
+			data: result.data,
 		});
+		yield call(delay, 2000);
 	}
 }

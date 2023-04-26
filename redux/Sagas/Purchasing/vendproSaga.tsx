@@ -6,7 +6,6 @@ function* handleVenproRequest ():any{
         // console.log(action.payload)
         const res=yield call(vendproService.findVendorProduct)
 
-        console.log(res.data)
         yield put(doGetVendrpoSucceed(res.data.res))
     }catch(e:any){
         yield put(doGetVendrpoFailed(e))

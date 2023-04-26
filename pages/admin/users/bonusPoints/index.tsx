@@ -22,6 +22,9 @@ import {
   MoreOutlined,
   PlusCircleOutlined,
   SearchOutlined,
+  EditOutlined,
+  DeleteOutlined,
+  QuestionCircleOutlined,
 } from '@ant-design/icons';
 import moment from 'moment';
 import ComponentsIndicatorToast from '@/components/Indicator/toast';
@@ -302,23 +305,6 @@ export default function UsersBonusPoints() {
       ),
   });
 
-  const items = [
-    {
-      key: '1',
-      label: 'Edit',
-      onClick: (id: any) => {
-        handleEdit(id.key);
-      }
-    },
-    {
-      key: '2',
-      label: 'Delete',
-      onClick: (id: any) => {
-        handleDelete(id.key);
-      }
-    },
-  ];
-
   // column BonusPoints
   const columnsBonusPoints: ColumnsType<DataTypeBonusPoints> = [
     {
@@ -335,13 +321,29 @@ export default function UsersBonusPoints() {
       render: (_, record) => (
         <Space size="middle">
           <Dropdown
+            className="items-center"
             overlay={(
-              <Menu className='hover:text-blue-600'>
-                {items.map((item) => (
-                  <Menu.Item key={record.ubpoId} onClick={item.onClick}>
-                    {item.label}
-                  </Menu.Item>
-                ))}
+              <Menu className="hover:text-blue-600 items-center space-y-1">
+                <Menu.Item className="border hover:border-blue-600 hover:text-blue-600 items-center" key={`Edit${record.ubpoId}`} onClick={() => handleEdit(record.ubpoId)}>
+                  <EditOutlined />{" Edit"}
+                </Menu.Item>
+                <Menu.Item className="border hover:border-red-600 hover:text-red-600 items-center" key={`Delete${record.ubpoId}`}>
+                  <Popconfirm
+                    title="Delete the task"
+                    description="Are you sure to delete bonus points?"
+                    onConfirm={() => {
+                      if ({ confirm }) {
+                        handleDelete(record.ubpoId);
+                      }
+                    }}
+                    okText="Yes"
+                    cancelText="No"
+                    placement="rightTop" arrow
+                    icon={<QuestionCircleOutlined style={{ color: "red" }} className="items-center" />}
+                  >
+                    <DeleteOutlined />{" Delete"}
+                  </Popconfirm>
+                </Menu.Item>
               </Menu>
             )}
           >
@@ -485,7 +487,7 @@ export default function UsersBonusPoints() {
                         <Form onSubmit={handleSubmit}>
                           {/* Add BonusPoints */}
                           <Box 
-                            className="pl-8 pr-8 pb-4"
+                            className="pl-8 pr-8 pb-4 space-y-2"
                           >
 
                             {/* FullName */}
@@ -633,9 +635,10 @@ export default function UsersBonusPoints() {
                         <Form onSubmit={handleSubmit}>
                           {/* Edit BonusPoints */}
                           <Box 
-                            className="pl-8 pr-8 pb-4"
+                            className="pl-8 pr-8 pb-4 space-y-2"
                           >
                             <TextField
+                              variant='filled'
                               hidden
                               type='hidden'
                               value={values.ubpoId=DataUserEdit.ubpoId}

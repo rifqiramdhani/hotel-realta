@@ -17,7 +17,6 @@ export default function Fapho() {
   const fphHotel = useSelector(
     (state: any) => state.FaciPriceHistoryReducer.fph
   );
-  console.log("object", fphHotel);
   const fphOne = fphHotel.filter((item: any) => item.faph_faci_id == id);
 
   // reducer faci

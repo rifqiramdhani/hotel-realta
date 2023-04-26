@@ -1,7 +1,7 @@
 import React from 'react';
 import { Layout } from 'antd';
 
-const FooterComponent = () => {
+const FooterHome = () => {
   const { Footer } = Layout;
   return (
     <>
@@ -11,4 +11,4 @@ const FooterComponent = () => {
   );
 };
 
-export default (FooterComponent);
+export default (FooterHome);

@@ -14,7 +14,6 @@ function* handleGetStocks ():any{
 function* handleAddStocks (action:any):any{
     try{
         const res = yield call(stockService.createStocks,action.payload)
-        console.log(res.data)
         yield put(doAddStocksSucceed(res.data.result))
         return res.data.result
     }catch(e){
@@ -25,7 +24,6 @@ function* handleAddStocks (action:any):any{
 function* handleUpdateStocks (action:any):any{
     try{
         const res = yield call(stockService.updateStocks, action.payload)
-        console.log(res.data)
         yield put(doEditStocksSucceed(res.data.result))
     }catch(e:any){
         console.log(e)

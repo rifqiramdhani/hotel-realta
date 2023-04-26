@@ -307,6 +307,18 @@ const removeBonusPoint = async (id:number) => {
     }
 }
 
+const forgotPassword = async (data: any) => {
+    try {
+        const result:any = await axios.put(`/auth/forgotPassword`, data);
+        if (!result) {
+            throw new Error("Axios put problem");
+        }
+        return result;
+    } catch (error:any) {
+        return error.message;
+    }
+}
+
 const ReduceService:any = {
     getAll,
     getId,
@@ -332,7 +344,8 @@ const ReduceService:any = {
     getIdBonusPoint,
     createBonusPoint,
     updateBonusPoint,
-    removeBonusPoint
+    removeBonusPoint,
+    forgotPassword
 }
 
 export default ReduceService;

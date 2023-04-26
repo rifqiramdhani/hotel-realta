@@ -7,6 +7,7 @@ import {
   ShoppingCartOutlined,
   SolutionOutlined,
   BookOutlined,
+  ReconciliationOutlined
 } from "@ant-design/icons";
 import type { MenuProps } from "antd";
 import { Layout, Menu, theme } from "antd";
@@ -53,11 +54,11 @@ const SidebarAdmin = () => {
     getItem('Human Resources', 3,<SolutionOutlined/>,[
       getItem('Departments','/admin/hr/department'),
       getItem('Employees', '/admin/hr/employee'),
-      getItem('Work Orders','/admin/hr/workorder'),
+      getItem('Work Orders','/admin/hr/workorders'),
     ]),
     getItem('Purchasing', 4,<ShoppingCartOutlined/>,[
-      getItem('Stock','/admin/purchasing/stocks'),
       getItem('Vendor','/admin/purchasing/vendor'),
+      getItem('Stock','/admin/purchasing/stocks'),
       getItem('Stock Carts','/admin/purchasing'),
     ]),
     getItem('Payment',5, <CreditCardOutlined/>, [
@@ -65,12 +66,9 @@ const SidebarAdmin = () => {
       getItem('Financial Techno','/admin/payment/fintech'),
       getItem('Transaction','/admin/payment/transaction'),
     ]),
-    getItem('Hotels',6, <IdcardOutlined/>,[
-      getItem('Hotel','/admin/hotels/hotel'),
-      getItem('Facilities','/admin/hotels/facilities'),
-      getItem('Reviews','/admin/hotels/reviews')
-    ]),
-    getItem('Resto','/admin/resto', <BookOutlined/>)
+    getItem('Hotels', '/admin/hotels/hotel', <IdcardOutlined/>),
+    getItem('Resto', '/admin/resto', <BookOutlined />),
+    getItem('Booking', '/admin/booking/receptionist', <ReconciliationOutlined />)
   ]
   const [collapsed, setCollapsed] = useState(false);
 
@@ -81,11 +79,13 @@ const SidebarAdmin = () => {
   return (
     <>
       {/* Sider */}
-      <Sider 
-        collapsible 
-        collapsed={collapsed} 
-        onCollapse={(value) => setCollapsed(value)}
+      <Sider
+        className="shadow-lg overflow-y-auto"
+        theme="dark"
         style={{ background: colorBgContainer }}
+        collapsible
+        collapsed={collapsed}
+        onCollapse={(value) => setCollapsed(value)}
       >
         <div className="flex justify-center text-justify">
           {collapsed ? (
@@ -100,12 +100,13 @@ const SidebarAdmin = () => {
         </div>
 
         {/* Menu Sidebar */}
-        <Menu 
-          mode="inline" 
-          items={items} 
+        <Menu
+          // defaultSelectedKeys={['1']}
+          mode="inline"
+          items={items}
           style={{ background: colorBgContainer }}
-          selectedKeys={[location.pathname]}
           onSelect={selectMenuItem}
+          selectedKeys={[location.pathname]}
         />
       </Sider>
     </>

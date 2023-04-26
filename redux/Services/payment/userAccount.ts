@@ -6,17 +6,17 @@ const getAll = async () => {
     return await axios.get(USER_ACCOUNT_URL);
 };
 
-const getbyUser = async (data: any) => {
+const getbyUser = async (data: UserAccount) => {
     // nanti ganti jadi UserAccount data typenya
     return await axios.get(`${USER_ACCOUNT_URL}/filter?userId=${data.userId}`)
 };
 
 const insert = async (data: UserAccount) => {
-    return await axios.post(`${USER_ACCOUNT_URL}/add`, data).then(result=>console.log(result)).catch(error=>console.log(error))
+    return await axios.post(`${USER_ACCOUNT_URL}/add`, data)
 }
 
 const update = async (data: UserAccount) => {
-    return await axios.put(`${USER_ACCOUNT_URL}/${data.accountNumber}`, data).then(result=>console.log(result)).catch(error=>console.log(error))
+    return await axios.put(`${USER_ACCOUNT_URL}/${data.accountNumber}`, data)//.then(result=>console.log('u pservcie', result)).catch(error=>console.log(error))
 }
 
 const remove = async (data: any) => {

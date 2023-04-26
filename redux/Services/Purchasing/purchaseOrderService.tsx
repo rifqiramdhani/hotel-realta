@@ -3,7 +3,6 @@ import axios from '../../../config/http-common'
 const getPurchaseOrder = async()=>{
     try{
         const res = await axios.get('/purchase-order-header/purchasing')
-        console.log(res)
         return res
     }catch(e:any){
         return e.message

@@ -22,6 +22,9 @@ import {
   MoreOutlined,
   PlusCircleOutlined,
   SearchOutlined,
+  QuestionCircleOutlined,
+  EditOutlined,
+  DeleteOutlined,
   CloseOutlined,
 } from '@ant-design/icons';
 import moment from 'moment';
@@ -311,23 +314,6 @@ export default function UsersMembers() {
       ),
   });
 
-  const items = [
-    {
-      key: '1',
-      label: 'Edit',
-      onClick: (id: any) => {
-        handleEdit(id.key);
-      }
-    },
-    {
-      key: '2',
-      label: 'Delete',
-      onClick: (id: any) => {
-        handleDelete(id.key);
-      }
-    },
-  ];
-
   // column Members
   const columnsMembers: ColumnsType<DataTypeMembers> = [
     {
@@ -342,15 +328,32 @@ export default function UsersMembers() {
       key: 'operation',
       width: '5%',
       render: (_, record) => (
-        <Space size="middle">
+        <Space size="middle" className="items-center">
           <Dropdown
+            className="items-center"
             overlay={(
-              <Menu className='hover:text-blue-600'>
-                {items.map((item) => (
-                  <Menu.Item key={record.usmeId} onClick={item.onClick}>
-                    {item.label}
-                  </Menu.Item>
-                ))}
+              <Menu className="hover:text-blue-600 items-center space-y-1">
+                <Menu.Item className="border hover:border-blue-600 hover:text-blue-600 items-center" key={`Edit${record.usmeId}`} onClick={() => handleEdit(record.usmeId)}>
+                  <EditOutlined />{" Edit"}
+                </Menu.Item>
+                <Menu.Item className="border hover:border-red-600 hover:text-red-600 items-center" key={`Delete${record.usmeId}`}>
+                  <Popconfirm
+                    title="Delete the task"
+                    description="Are you sure to delete members?"
+                    onConfirm={() => {
+                      if ({ confirm }) {
+                        handleDelete(record.usmeId);
+                      }
+                    }}
+                    okText="Yes"
+                    cancelText="No"
+                    placement="rightTop" arrow
+                    className="items-center"
+                    icon={<QuestionCircleOutlined style={{ color: "red" }} className="items-center" />}
+                  >
+                    <DeleteOutlined />{" Delete"}
+                  </Popconfirm>
+                </Menu.Item>
               </Menu>
             )}
           >
@@ -541,13 +544,8 @@ export default function UsersMembers() {
                         <Form onSubmit={handleSubmit}>
                           {/* Add Members */}
                           <Box 
-                            className="pl-8 pr-8 pb-4"
+                            className="pl-8 pr-8 pb-4 space-y-2"
                           >
-                            {/* <TextField
-                              hidden
-                              type='hidden'
-                              value={values.usmeId=DataUserEdit.usmeId}
-                            /> */}
 
                             {/* FullName */}
                             <FormControl className="pb-4" fullWidth size="small" color="primary" variant="standard" error={!!touched.usroRole && !!errors.usroRole}>
@@ -715,9 +713,10 @@ export default function UsersMembers() {
                         <Form onSubmit={handleSubmit}>
                           {/* Edit Members */}
                           <Box 
-                            className="pl-8 pr-8 pb-4"
+                            className="pl-8 pr-8 pb-4 space-y-2"
                           >
                             <TextField
+                              variant='filled'
                               hidden
                               type='hidden'
                               value={values.usmeId=DataUserEdit.usmeId}

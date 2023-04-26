@@ -94,18 +94,6 @@ export default function Fapho() {
   const [faciName, setFaciName] = useState("");
   const [faciDate, setFaciDate] = useState("");
   const [form] = Form.useForm();
-
-  useEffect(() => {
-    if (faciOne) {
-      setFaciName(faciOne.faci_name);
-      setFaciDate(faciOne.faci_modified_date);
-    }
-  }, [faciOne]);
-
-  useEffect(() => {
-    dispatch(doGetFapho());
-    dispatch(doFaciAdminReq());
-  }, []);
   const columns: ColumnType<any>[] = [
     {
       title: "No.",
@@ -140,13 +128,8 @@ export default function Fapho() {
       dataIndex: "fapho_photo_filename",
       key: "fapho_photo_filename",
     },
-    // {
-    //   title: "fapho_url",
-    //   dataIndex: "fapho_url",
-    //   key: "fapho_url",
-    // },
     {
-      title: "modifield date",
+      title: "modified date",
       key: "fapho_modifield_date",
       render: (text: any, record: any, index) => (
         <p className="w-32 text-xs">
@@ -257,9 +240,6 @@ export default function Fapho() {
   };
 
   const onFinish = (values: any) => {
-    console.log(values);
-    console.log(fileList);
-
     const formData = new FormData();
     fileList.forEach((file) => {
       formData.append("file[]", file as RcFile);
@@ -274,29 +254,31 @@ export default function Fapho() {
       body: formData,
     })
       .then((res) => {
-        console.log(res);
         setFileList([]);
-        window.location.reload();
+        // window.location.reload();
         message.success("upload successfully.");
       })
       .catch((e: any) => {
         message.error("upload failed.");
-        console.log("upload failed");
       })
       .finally(() => {
         setUploading(false);
+        setModal2Open(false);
       });
-    // dispatch(doUploadFapho(formData));
-    // if (!dispatch) {
-    //   message.error("gagal tambah data");
-    // } else {
-    //   setModal2Open(false);
-    //   setFileList([]);
-    //   message.success("upload successfully.");
-    //   setUploading(false);
-    // }
   };
+  useEffect(() => {
+    if (faciOne) {
+      setFaciName(faciOne.faci_name);
+      setFaciDate(faciOne.faci_modified_date);
+    }
+  }, [faciOne]);
 
+  useEffect(() => {
+    if (uploading == false) {
+      dispatch(doGetFapho());
+      dispatch(doFaciAdminReq());
+    }
+  }, [uploading]);
   return (
     <div>
       <Head>
@@ -333,9 +315,17 @@ export default function Fapho() {
               onCancel={() => setModal2Open(false)}
               okText="Upload"
               footer={[
-                <Button key="2">Cancel</Button>,
-                <Button key="3" onClick={form.submit} type="primary">
-                  Upload
+                <Button key="2" onClick={() => setModal2Open(false)}>
+                  Cancel
+                </Button>,
+                <Button
+                  key="3"
+                  loading={uploading}
+                  disabled={fileList.length === 0}
+                  onClick={form.submit}
+                  type="primary"
+                >
+                  {uploading ? "Uploading" : "Start Upload"}
                 </Button>,
               ]}
             >
@@ -362,7 +352,7 @@ export default function Fapho() {
                       )}
                       {...propsUpload}
                     >
-                      <Button icon={<UploadOutlined />}>Click to Upload</Button>
+                      <Button icon={<UploadOutlined />}>upload?</Button>
                     </Upload>
                   </SortableContext>
                 </DndContext>

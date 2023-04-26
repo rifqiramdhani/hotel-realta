@@ -1,47 +1,62 @@
 import React from 'react';
 import { Layout, theme } from 'antd';
+import PrivateWithAuth from "@/components/Private/withAuth";
 import HeaderAdmin from '@/components/Header/admin';
 import SidebarAdmin from '@/components/Sidebar/admin';
-import FooterComponent from '@/components/Footer';
+import FooterEmployee from '@/components/Footer/employee';
 import IndicatorBreadcrumbEmployee from '@/components/Indicator/breadcrumb';
 import { useRouter } from 'next/router';
 
-const LayoutAdmin = ({ children }: any) => {
-    const { Header, Content } = Layout;
-    const {
-        token: { colorBgContainer },
-    } = theme.useToken();
 
-    const router = useRouter();
-    // const roleId: any = localStorage.getItem("roleId");
-    // if (roleId != 4) {
-    //   router.back();
-    // }
+const LayoutAdmin = ({ children }:any) => {
+  const { Header, Content } = Layout;
+  const {
+    token: { colorBgContainer },
+  } = theme.useToken();
 
-    return (
-        <>
-            <Layout style={{ minHeight: '100vh' }}>
-                <SidebarAdmin />
+  const router = useRouter();
+  const roleId: any = localStorage.getItem("roleId");
+  if (roleId != 4) {
+    router.back();
+  }
 
-                <Layout className="site-layout">
-                    <HeaderAdmin />
+  return (
+    <div>
+      {/* Layout */}
+      <Layout style={{ minHeight: '16vh' }}>
 
-                    <Content style={{ margin: '0 16px' }}>
-                        <IndicatorBreadcrumbEmployee />
+        {/* Sider */}
+        <SidebarAdmin/>
 
-                        <div style={{ padding: 24, minHeight: 360, background: colorBgContainer }}>
-                            { children }
-                        </div>
-                    </Content>
+        {/* LayoutSite */}
+        <Layout className="site-layout">
 
-                    {/* Footer */}
-                    <FooterComponent />
+          {/* Header */}
+          <Header style={{ padding: 0, background: colorBgContainer }}>
+            <HeaderAdmin/>
+          </Header>
+          
+          {/* Content */}
+          <Content style={{ margin: '0 16px' }}>
 
-                </Layout>
-            </Layout>
-        </>
-    );
+            {/* Breadcrumb */}
+            <IndicatorBreadcrumbEmployee />
+            
+            {/* LayoutMain */}
+            <main style={{ padding: 24, minHeight: 444, background: colorBgContainer, borderRadius:10 }}>
+              { children }
+            </main>
+
+          </Content>
+
+          {/* Footer */}
+          <FooterEmployee />
+          
+        </Layout>
+
+      </Layout>
+    </div>
+  );
 };
 
-// export default PrivateWithAuth(LayoutAdmin);
-export default LayoutAdmin
+export default PrivateWithAuth(LayoutAdmin);

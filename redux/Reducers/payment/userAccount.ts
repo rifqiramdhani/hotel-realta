@@ -22,14 +22,12 @@ import { UserAccount } from "@/lib/interfaces";
 
 const initialState: {
 	accounts: UserAccount[];
-	error: any;
+	status: any;
 	message: string;
-	result: any;
 } = {
 	accounts: [],
-	error: null,
+	status: 0,
 	message: "",
-	result: null,
 };
 
 export default function userAccountReducer(state = initialState, action: any) {
@@ -40,12 +38,16 @@ export default function userAccountReducer(state = initialState, action: any) {
 		case FETCH_ACCOUNTS_FAILED:
 			return {
 				...state,
-				error: action.error,
+				accounts: action.data.result,
+				message: action.data.message,
+				status: action.data.status,
 			};
 		case FETCH_ACCOUNTS_SUCCEED:
 			return {
 				...state,
 				accounts: action.data,
+				message: action.data.message,
+				status: action.data.status,
 			};
 
 		// FETCH BY USER
@@ -54,10 +56,17 @@ export default function userAccountReducer(state = initialState, action: any) {
 		case FETCH_ACCOUNT_FAILED:
 			return {
 				...state,
-				error: action.error,
+				accounts: action.data.result,
+				// message: action.data.message,
+				status: action.data.status,
 			};
 		case FETCH_ACCOUNT_SUCCEED:
-			return { ...state, accounts: action.data };
+			return {
+				...state,
+				accounts: action.data.result,
+				// message: action.data.message,
+				status: action.data.status,
+			};
 
 		// CREATE
 		case CREATE_ACCOUNT:
@@ -65,12 +74,14 @@ export default function userAccountReducer(state = initialState, action: any) {
 		case CREATE_ACCOUNT_FAILED:
 			return {
 				...state,
-				error: action.error,
+				message: action.data.message,
 			};
 		case CREATE_ACCOUNT_SUCCEED:
 			return {
 				...state,
-				accounts: [...state.accounts, action.data],
+				accounts: action.data.result,
+				message: action.data.message,
+				status: action.data.status,
 			};
 
 		// UPDATE
@@ -79,20 +90,20 @@ export default function userAccountReducer(state = initialState, action: any) {
 		case UPDATE_ACCOUNT_FAILED:
 			return {
 				...state,
-				error: action.error,
+				message: action.data?.message,
+				status: action.data?.status,
 			};
 		case UPDATE_ACCOUNT_SUCCEED:
-			const newUserAccountData: any = {
-				securedKey: action.data.securedKey,
-			};
-			state.accounts.splice(
-				state.accounts.findIndex(
-					(item: UserAccount) =>
-						item.accountNumber == action.data.accountNumber
+			return {
+				...state,
+				accounts: state.accounts.map((account: UserAccount) =>
+					account.accountNumber === action.data.accountNumber
+						? { ...account, securedKey: action.data.securedKey }
+						: account
 				),
-				1,
-				newUserAccountData
-			);
+				message: action.data.message,
+				status: action.data.status,
+			};
 
 		// DELETE
 		case DELETE_ACCOUNT:
@@ -100,15 +111,17 @@ export default function userAccountReducer(state = initialState, action: any) {
 		case DELETE_ACCOUNT_FAILED:
 			return {
 				...state,
-				error: action.error,
+				message: action.message,
 			};
 		case DELETE_ACCOUNT_SUCCEED:
 			return {
 				...state,
 				accounts: state.accounts.filter(
-					(items: any) =>
-						items.accountnumber !== action.data.accountnumber
+					(items: UserAccount) =>
+						items.accountNumber !== action.data.accountnumber
 				),
+				message: action.message,
+				status: action.status,
 			};
 
 		// CHECK SECURED KEY
@@ -117,14 +130,16 @@ export default function userAccountReducer(state = initialState, action: any) {
 		case CHECK_SECURED_KEY_FAILED:
 			return {
 				...state,
-				accounts: action.data,
-				message: action.message,
+				result: action.data.result,
+				message: action.data.message,
+				status: action.data.status,
 			};
 		case CHECK_SECURED_KEY_SUCCEED:
 			return {
 				...state,
-				error: action.error,
-				message: action.message,
+				result: action.data.result,
+				message: action.data.message,
+				status: action.data.status,
 			};
 
 		default:

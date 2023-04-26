@@ -4,9 +4,8 @@ import "@/styles/payment.module.css"
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { fetchTransactions } from "@/redux/Actions/payment/transaction";
-import { Col, Row } from "@nextui-org/react";
 import TransactionTable from "@/components/paymentComponents/admin/tables/transactionTable";
-import InfoChart from "@/components/paymentComponents/admin/InfoChart";
+import { PaginationOptions } from "@/lib/interfaces";
 
 export default function PaymentTransaction() {
     const dispatch = useDispatch()
@@ -19,7 +18,11 @@ export default function PaymentTransaction() {
 
     useEffect(() => {
         dispatch(fetchTransactions(paginationOptions))
-    }, [transactions])
+    }, [paginationOptions])
+
+    const handlePaginationOptions = (options: PaginationOptions) => {
+        setPaginationOptions(options)
+    }
 
     return (
         <div>
@@ -27,18 +30,12 @@ export default function PaymentTransaction() {
                 <title>Payment/Transaction</title>
             </Head>
             <LayoutAdmin>
-                <Row>
-                    <TransactionTable
-                        data={transactions}
-                        paginationOptions={paginationOptions}
-                        setPaginationOptions={setPaginationOptions}
-                        totalPage={lastPage}
-                        />
-                    <div>
-                        <InfoChart data={totalTrx} name={"Transaction"} />
-                        {/* <CategoryChart data={transactions} name={"Transaction"} /> */}
-                    </div>
-                </Row>
+                <TransactionTable
+                    data={transactions}
+                    paginationOptions={paginationOptions}
+                    setPaginationOptions={handlePaginationOptions}
+                    totalPage={lastPage}
+                />
             </LayoutAdmin>
         </div>
     );

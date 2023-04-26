@@ -1,5 +1,6 @@
 import LayoutAdmin from "@/components/Layout/admin";
-import { Col, Row, Space, Table, Input, Button, Dropdown, Menu, Popconfirm, message, Select } from "antd";
+import { Box } from "@mui/material";
+import { Col, Row, Space, Table, Input, Button, Dropdown, Menu, Popconfirm, message, Select, Avatar } from "antd";
 import Head from "next/head";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
@@ -13,6 +14,7 @@ import { doDeleteEmployee, doEmployeesRequest } from "@/redux/Actions/HumanResou
 import { doDepartmentRequest } from "@/redux/Actions/HumanResources/reducerDepartmentAction";
 import { doShiftsRequest } from "@/redux/Actions/HumanResources/reducerShiftAction";
 import { doJobrolesRequest } from "@/redux/Actions/HumanResources/reducerJobroleAction";
+import Image from "next/image";
 
 export default function HREmployee() {
   const { Search } = Input
@@ -42,8 +44,6 @@ export default function HREmployee() {
     (state: any) => state.usersReducers
   );
 
-  // console.log("Users: ", users)
-  // console.log("Employee: ", employee)
   // variable untuk data table
   const [filteredDataSearch, setFilteredDataSearch] = useState([]);
   const [filteredDataSelect, setFilteredDataSelect] = useState([]);
@@ -54,9 +54,6 @@ export default function HREmployee() {
 
 
 
-  // console.log("data select:",filteredDataSelect)
-  // console.log("data tableData:", tableData)
-  // console.log("data search:",filteredDataSearch)
 
   //  dispatch API GET employee
   const dispatch = useDispatch();
@@ -176,10 +173,17 @@ export default function HREmployee() {
       dataIndex: 'emp_photo',
       key: 'emp_photo',
       render: (_: any, record: any) => {
-        const date = new Date(record.emp_birth_date)
+        const emp_photo = (record.emp_photo)
+        let url = "";
+        
+        if (emp_photo == 'user.png'){
+          url = "/images/user.png";
+        }else{
+          url = emp_photo;
+        }
         return (
           <>
-            <p>{date.toLocaleDateString()}</p>
+            <p><Avatar src={<img src={url} alt="avatar"/>} /></p>
           </>
         )
       }
@@ -269,7 +273,7 @@ export default function HREmployee() {
   ];
   /* endhandle datatable */
   return (
-    <>
+    <Box>
       <Head>
         <title>Human Resource</title>
       </Head>
@@ -299,7 +303,7 @@ export default function HREmployee() {
                       { value: 0, label: 'INACTIVE' },
                     ]}
                   />
-                </Space>
+                </Space> 
               </div>
             </div>
           </Col>
@@ -316,10 +320,10 @@ export default function HREmployee() {
             show={isModalOpenAdd}
             handleCancel={handleCancelAdd}
             handleClose={handleCloseAdd}
-            dataDepartment={department}
-            dataUsers={users.results}
-            dataShift={shift}
-            dataJobrole={jobrole}
+            dataDepartment = {department}
+            dataUsers = {users.results}
+            dataShift = {shift}
+            dataJobrole = {jobrole}
           />
         ) : null}
 
@@ -330,14 +334,14 @@ export default function HREmployee() {
             handleClose={handleCloseEdit}
             id={dataEmpId}
             dataEmployee={employee}
-            dataDepartment={department}
+            dataDepartment = {department}
             dataUsers={users.results}
-            dataShift={shift}
-            dataJobrole={jobrole}
+            dataShift = {shift}
+            dataJobrole = {jobrole}
 
           />
         ) : null}
       </LayoutAdmin>
-    </>
+    </Box>
   );
 }

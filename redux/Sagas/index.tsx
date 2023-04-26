@@ -12,6 +12,7 @@ import {
     handleDelMembers,
     handleDelRoles,
     handleDelUsers,
+    handleForgotPassword,
     handleLoginUsers,
     handleMember,
     handleMembers,
@@ -69,7 +70,7 @@ import { handleAddBoex } from "./Booking/boexSaga";
 import purchasingTypes from "../Constant/Purchasing/purchasingTypes";
 import { handleGetPurchaseOrderDetail } from "./Purchasing/poDetailSaga";
 import { handleInsertPurchaseOrder, handleGetPurchaseOrder, handleEditPurchaseOrder } from "./Purchasing/purchaseOrderSaga";
-import { handleGetStockPhoto, handleGetStockPhotoDashboard } from "./Purchasing/sphoSaga";
+import { handleAddStockPhoto, handleGetStockPhoto, handleGetStockPhotoDashboard } from "./Purchasing/sphoSaga";
 import { handleGetStocks, handleAddStocks, handleUpdateStocks } from "./Purchasing/stocksSaga";
 import { handleGetStockDetail, handleGetFaciNameAndId, handleUpdateStockDetail } from "./Purchasing/stodSaga";
 import { handleAddVendor, handleGetVendor, handleUpdateVendor, handleDeleteVendor } from "./Purchasing/vendorSaga";
@@ -77,7 +78,9 @@ import { handleVenproRequest, handleAddVendorProduct } from "./Purchasing/vendpr
 import { handleAddWorkorderdetail, handleDeleteWorkorderdetail, handleUpdateWorkorderdetail, handleWorkorderdetail, handleWorkorderdetails } from "./HumanResources/workorderdetailSaga";
 import ActionMasterType from "../Constant/Masters/ActionType";
 import { handleServiceTask } from "./Masters/regionsSaga";
-import { handelHistory } from "./Booking/bookingHistorySaga";
+import { handelHistory, handelupdateHistory } from "./Booking/bookingHistorySaga";
+import ActionTypeResto from "../Constant/Resto/ActionType";
+import { handeleOrderMenusOneAkhir, handleAddOrderDetail, handleAddOrderMenus, handleCreateRestoMenus, handleDeleteRestomenus, handleOrderMenus, handleOrderMenusIdAkhir, handleRestoMenu, handleRestoMenus, handleRestoMenusCard, handleRestoMenusPhotosUrl, handleUpdateRestoMenus } from "./Resto/restoMenusSaga";
 
 function* watchAll(): any {
     yield all([
@@ -92,17 +95,19 @@ function* watchAll(): any {
         takeEvery(ActionType.UPDATE_USERS, handleUpdateUsers),
         takeEvery(ActionType.UPDATE_PHOTO_USERS, handleUpdatePhotoUsers),
         takeEvery(ActionType.DEL_USERS, handleDelUsers),
+        takeEvery(ActionType.CHANGE_PASSWORD, handleChangePassword),
         /* AUTH */
         takeEvery(ActionType.LOGIN, handleLoginUsers),
         takeEvery(ActionType.REGISTER, handleRegisterUsers),
         takeEvery(ActionType.REGISTER_GUEST, handleRegisterUsersGuest),
+        takeEvery(ActionType.FORGOT_PASSWORD, handleForgotPassword),
         /* ROLES */
         takeEvery(ActionType.GET_ROLES, handleRoles),
         takeEvery(ActionType.GET_ROLE, handleRole),
         takeEvery(ActionType.ADD_ROLES, handleAddRoles),
         takeEvery(ActionType.UPDATE_ROLES, handleUpdateRoles),
         takeEvery(ActionType.DEL_ROLES, handleDelRoles),
-        takeEvery(ActionType.CHANGE_PASSWORD, handleChangePassword),
+        
         /* MEMBERS */
         takeEvery(ActionType.GET_MEMBERS, handleMembers),
         takeEvery(ActionType.GET_MEMBER, handleMember),
@@ -191,7 +196,24 @@ function* watchAll(): any {
         takeEvery(ActionTypesBO.GET_INVOICE,handleInvoice),
         takeEvery(ActionTypesBO.ADD_BOEX,handleAddBoex),
         takeEvery(ActionTypesBO.GET_HISTORY_BOOKING,handelHistory),
+        takeEvery(ActionTypesBO.UPDATE_STATUS_BOOKING,handelupdateHistory),
         //Resto
+        takeEvery(ActionTypeResto.GET_AKHIR_ORDER_MENUS, handeleOrderMenusOneAkhir),
+        takeEvery(ActionTypeResto.GET_CARDRESTOMENUS, handleRestoMenusCard),
+        takeEvery(ActionTypeResto.GET_ORDER_MENUS, handleOrderMenus),
+        takeEvery(ActionTypeResto.GET_RESTOMENUS, handleRestoMenus),
+
+        takeEvery(ActionTypeResto.GET_URL_PHOTOS, handleRestoMenusPhotosUrl),
+        takeEvery(ActionTypeResto.GET_RESTOMENU, handleRestoMenu),
+        takeEvery(ActionTypeResto.UPDATE_RESTOMENUS, handleUpdateRestoMenus),
+        takeEvery(ActionTypeResto.DEL_RESTOMENUS, handleDeleteRestomenus),
+
+        takeEvery(ActionTypeResto.ADD_ORDER_DETAIL, handleAddOrderDetail),
+        takeEvery(ActionTypeResto.ADD_RESTOMENUS, handleCreateRestoMenus),
+        takeEvery(ActionTypeResto.ADD_ORDER_MENUS, handleAddOrderMenus),
+        // takeEvery(ActionTypeResto.ADD_FOTO_RESTO_MENUS, handlePhotoMenus),
+
+        takeEvery(ActionTypeResto.GET_ID_AKHIR_ORDER_MENUS, handleOrderMenusIdAkhir),
 
         //Payment
         takeEvery(FETCH_BANKS, fetchBanks),
@@ -223,6 +245,7 @@ function* watchAll(): any {
         takeEvery(purchasingTypes.UPDATE_STOCK, handleUpdateStocks),
         takeEvery(purchasingTypes.GET_STOCK_PHOTO, handleGetStockPhoto),
         takeEvery(purchasingTypes.GET_STOCK_PHOTO_DASHBOARD, handleGetStockPhotoDashboard),
+        takeEvery(purchasingTypes.ADD_STOCK_PHOTO, handleAddStockPhoto),
         takeEvery(purchasingTypes.GET_STOCK_DETAIL, handleGetStockDetail),
         takeEvery(purchasingTypes.GET_FACI_NAME_AND_ID, handleGetFaciNameAndId),
         takeEvery(purchasingTypes.EDIT_STOCK_DETAIL, handleUpdateStockDetail),

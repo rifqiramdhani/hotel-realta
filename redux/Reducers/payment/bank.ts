@@ -58,21 +58,19 @@ export default function bankReducer(state = initialState, action: any) {
 				...state,
 			};
 		case UPDATE_BANK_SUCCEED:
-			const newBankData: Bank = {
-				bankEntityId: action.data.bankEntityId,
-				bankCode: action.data.bankCode,
-				bankName: action.data.bankName,
-				bankModifiedDate: action.data.bankModifiedDate,
-			};
-			
 			return {
-				banks: state.banks.splice(
-					state.banks.findIndex(
-						(item: any) => item.bankCode == action.data.bankCode
-					),
-					1,
-					newBankData
-				)
+				...state,
+				banks: state.banks.map((bank: Bank) =>
+					bank.bankEntityId === action.data.bankEntityId
+						? {
+							...bank,
+							bankCode: action.data.bankEntityId,
+							bankName: action.data.bankName,
+							bankModifiedDate: action.data.bankModifiedDate,
+						} : bank
+				),
+				message: action.data.message,
+				status: action.data.status
 			}
 		case UPDATE_BANK_FAILED:
 			return {
@@ -87,7 +85,7 @@ export default function bankReducer(state = initialState, action: any) {
 		case INSERT_BANK_SUCCEED:
 			return {
 				...state,
-				banks: [...state.banks, ...action.data.result],
+				banks: [...state.banks, action.data.result],
 				message: action.data.message,
 				status: action.data.status
 			};
@@ -106,7 +104,7 @@ export default function bankReducer(state = initialState, action: any) {
 			return {
 				...state,
 				banks: state.banks.filter(
-					(bank) => bank.bankEntityId != action.bankEntityId
+					(bank) => bank.bankEntityId != action.data.bankEntityId
 				),
 			};
 		case DELETE_BANK_FAILED:

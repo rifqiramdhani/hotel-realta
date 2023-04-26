@@ -191,8 +191,16 @@ function usersReducers(state = initialState, action:any) {
         case ActionType.DEL_BONUSPOINTS_SUCCEED:
             return {
                 ...state,
-                bonusPoints: state.bonusPoints.filter((bonusPoints:any) => bonusPoints.id !== action.payload.id)
+                bonusPoints: state.bonusPoints.filter((bonusPoints: any) => bonusPoints.id !== action.payload.id)
             }
+        
+        // FORGOT PASSWORD
+        case ActionType.FORGOT_PASSWORD:
+            return { ...state };
+        case ActionType.FORGOT_PASSWORD_SUCCEED:
+            return applyForgotPassword(state, action);
+        case ActionType.FORGOT_PASSWORD_FAILED:
+            return applyForgotPassword(state, action);
         
         // DEFAULT
         default:
@@ -282,6 +290,18 @@ const applyUpdateBonusPoints = (state: any, action: any) => {
             return state
         }
     });
+}
+
+// UPDATE FORGOT PASSWORD
+const applyForgotPassword = (state: any, action: any) => {
+    if (action.payload.data.results) {
+        return {
+            ...action,
+            ...action.payload.data.results
+        }
+    }
+
+    return action;
 }
 
 

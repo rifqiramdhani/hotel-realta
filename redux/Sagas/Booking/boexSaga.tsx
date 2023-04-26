@@ -4,9 +4,10 @@ import { boexCreateFailed, boexCreateSucced } from "@/redux/Actions/Booking/acti
 
 function * handleAddBoex(action:any):any{
     try{
-        const result = yield call(ApiOrderDetails.createBoex,action.payload)
-        console.log(result.data);
+        const result = yield call(ApiOrderDetails.createBoex, action.payload);
         yield put(boexCreateSucced(result.data))
+        console.log(result.data);
+        
     }catch(error:any){
         yield put(boexCreateFailed(error))
     }
