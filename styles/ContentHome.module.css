@@ -1,0 +1,104 @@
+.textTitleInHome {
+    display: flex;
+    height: 36px;
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 24px;
+    line-height: 24px;
+    flex: none;
+    order: 0;
+    flex-grow: 0;
+    align-items: center;
+    justify-content: center;
+    text-justify: center;
+    color: #F33C5D;
+}
+
+.textTitleInHomeEdit {
+    display: flex;
+    height: 36px;
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 18px;
+    flex: none;
+    order: 0;
+    flex-grow: 0;
+    align-items: center;
+    justify-content: left;
+    text-justify: left;
+    margin-top: 8;
+
+}
+
+.textLabelInHome {
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 28px;
+    text-align: center;
+}
+
+.textLabelInHomeAbout {
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 32px;
+    padding-left: 70px;
+    padding-right: 70px;
+    text-align: justify;
+}
+
+.textLabelInHomeFooter {
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 28px;
+    text-align: left;
+}
+
+.formHome {
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 100;
+    font-size: 14px;
+    border: gray;
+    width: auto;
+}
+
+@media (max-width: 600px) {
+    .formHome {
+        font-family: 'Poppins';
+        font-style: normal;
+        font-weight: 100;
+        font-size: 12px;
+        line-height: 21px;
+        padding-bottom: 10px;
+        width: auto;
+    }
+}
+
+.PTbuttonEditHome {
+    position: relative;
+    padding-top: 60px;
+}
+
+.searchCardHome {
+    position: absolute;
+    width: 1550px;
+    height: auto;
+    left: 190px;
+    top: 501px;
+}
+
+@media (max-width: 812px) {
+    .PTbuttonEditHome {
+        position: relative;
+        padding-top: 0px;
+    }
+}
